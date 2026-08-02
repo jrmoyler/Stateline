@@ -14,21 +14,26 @@ Life & Health insurance, the founding track, verified:
 
 | Jurisdiction | Reality | What generic material says |
 |---|---|---|
-| Nevada | Passing score is a scaled **80** | 70% |
-| Montana | **75%** | 70% |
+| Montana | A scaled **75** — the highest bar found anywhere | 70% |
 | Michigan | **75%** combined, **72%** Life, **76%** Health | 70% |
 | Mississippi | **65%** for L&H lines (70% for P&C) | 70% |
 | California | **60%**, and the vendor is **PSI** | 70%, Pearson VUE |
 | Alabama | Exam run by the **University of Alabama**, not a national vendor | PSI/Pearson VUE |
 | Kentucky | Exam run by the **Dept. of Insurance** itself | PSI/Pearson VUE |
 
-Michigan is worth dwelling on: nearly every guide says 73% for the combined line. 73% is real, but it
-belongs to a *different* Michigan exam — Life, Variable Life and Annuities. The combined Life,
-Accident & Health cut score is 75%.
+Two of those are worth dwelling on, because they show how the errors propagate.
+
+Nearly every guide says Michigan's combined line is 73%. 73% is real — but it belongs to a *different*
+Michigan exam, Life, Variable Life and Annuities. The combined Life, Accident & Health cut score is 75%.
+
+And this repository itself used to claim Nevada required a scaled 80, "the highest bar found in any
+state," on the strength of three separate secondary sources that agreed with each other. Nevada
+Administrative Code 683A.270 says 70, and the Pearson VUE Nevada handbook cites that rule by number.
+Three sources agreeing did not make it true. That claim was on the landing page.
 
 A dozen-plus jurisdictions have **no combined Life & Health exam** at all — Life and Health are
-separate sittings (AK, CO, DC, DE, HI, IA, ID, NC, NJ, RI, TN, WI, WV among them). Florida, contrary
-to what a lot of material says, *does* have one: the 2-15.
+separate sittings (AK, CO, DC, DE, HI, IA, ID, MT, NC, ND, NJ, RI, TN, WI, WV among them). Florida,
+contrary to what a lot of material says, *does* have one: the 2-15.
 
 And "70%" often isn't a percentage. Many states report a **scaled** 70 on a 0–100 range that their
 own handbooks say is neither the count nor the percentage of questions you got right — so there is no
