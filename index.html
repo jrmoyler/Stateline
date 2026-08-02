@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StateLine — Life &amp; Health Insurance Licensing Prep</title>
-<meta name="description" content="Life &amp; Health insurance licensing prep for all 51 US jurisdictions. Exam specs verified against state insurance departments and official testing-vendor handbooks.">
+<title>StateLine — Licensing &amp; Certification Prep</title>
+<meta name="description" content="Exam prep for 23 licenses and certifications across all 51 US jurisdictions — insurance, tax, cloud, cybersecurity, real estate and beauty. Requirements verified against state boards and official testing-vendor handbooks.">
 <link rel="icon" type="image/png" id="favicon" href="/assets/logo-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,14 +24,20 @@
           <span class="sub">Licensing Prep</span>
         </div>
       </div>
-      <span class="nav-note" id="nav-note">51 jurisdictions</span>
+      <div class="landing-nav-right">
+        <label class="track-picker">
+          <span>Track</span>
+          <select class="track-select" id="landing-track-select" aria-label="Choose a license or certification"></select>
+        </label>
+        <span class="nav-note" id="nav-note">51 jurisdictions</span>
+      </div>
     </nav>
 
     <header class="hero">
       <img class="landing-logo" id="hero-logo" alt="StateLine Licensing Prep">
-      <span class="hero-eyebrow">Life &amp; Health Insurance Exam</span>
-      <h2>Your exam isn't the <em>same</em> as their exam.</h2>
-      <p class="lede">Every prep course teaches the same national curriculum &mdash; because 85% of it genuinely is the same. The other 15% is where people fail: <b>your state's law module, your vendor, your passing score.</b> Start from your state, not from a generic course.</p>
+      <span class="hero-eyebrow" id="hero-eyebrow">Life &amp; Health Insurance Producer License</span>
+      <h2 id="hero-headline">Your exam isn't the <em>same</em> as their exam.</h2>
+      <p class="lede" id="hero-lede">Every prep course teaches the same national curriculum &mdash; because most of it genuinely is the same. The rest is where people fail: <b>your state's rules module, your vendor, your passing score.</b> Start from your state, not from a generic course.</p>
       <div class="hero-actions">
         <button class="btn-enter" id="enter-app">Open the map <span class="arrow">&rarr;</span></button>
         <span class="aside">No account needed to look around.</span>
@@ -46,38 +52,17 @@
     <section class="diffs">
       <div class="diffs-head">
         <div>
-          <h3>No two states test the same way</h3>
-          <p id="diffs-sub">Specifications verified against state insurance departments and official testing-vendor handbooks.</p>
+          <h3 id="diffs-head">No two states test the same way</h3>
+          <p id="diffs-sub">Specifications verified against state boards and official testing-vendor handbooks.</p>
         </div>
       </div>
-      <div class="diff-grid">
-        <article class="diff-cell">
-          <div class="st">Michigan</div>
-          <div class="fact">73%</div>
-          <p class="exp">Not 70. Michigan sets a higher bar than almost every other state &mdash; and 72% on the Life-only exam.</p>
-        </article>
-        <article class="diff-cell">
-          <div class="st">California</div>
-          <div class="fact">60%</div>
-          <p class="exp">The lowest threshold in the country, on a single 150-question combined exam over three hours.</p>
-        </article>
-        <article class="diff-cell">
-          <div class="st">North Carolina</div>
-          <div class="fact">Two exams</div>
-          <p class="exp">No combined test at all. Life and Accident/Health are separate sittings, scored on a scale &mdash; not a percentage.</p>
-        </article>
-        <article class="diff-cell">
-          <div class="st">Washington</div>
-          <div class="fact">195 min</div>
-          <p class="exp">Over three hours for the combined Life &amp; Disability exam. No pre-licensing course required since 2023.</p>
-        </article>
-      </div>
+      <div class="diff-grid" id="diff-grid"></div>
     </section>
 
     <section class="whats-inside">
       <div class="inside-item">
         <h4>Audio lessons</h4>
-        <p>Seven modules covering the national curriculum, with the final one rewritten for your state's law and regulation section.</p>
+        <p id="inside-audio">Modules covering the core curriculum, with the last one rewritten for your state's rules and regulations.</p>
       </div>
       <div class="inside-item">
         <h4>Summary guide</h4>
@@ -85,17 +70,17 @@
       </div>
       <div class="inside-item">
         <h4>Practice test</h4>
-        <p>Scored questions with the correct answer shown after each one, so a wrong answer teaches you something.</p>
+        <p id="inside-practice">Scored questions with the correct answer shown after each one, so a wrong answer teaches you something.</p>
       </div>
       <div class="inside-item">
         <h4>Flashcards</h4>
-        <p>The definitions that show up as one-third of every exam &mdash; contestability, nonforfeiture, twisting, coordination of benefits.</p>
+        <p id="inside-flash">The definitions that carry the most marks on this exam.</p>
       </div>
     </section>
 
     <footer class="landing-foot">
       <span>StateLine</span>
-      <span id="foot-note">Every state's exam specification is labeled with its verification status and source.</span>
+      <span id="foot-note">Every state's requirements are labeled with verification status and source.</span>
     </footer>
   </div>
 </section>
@@ -109,6 +94,10 @@
     </div>
   </div>
   <div class="header-right">
+    <label class="track-picker header-track">
+      <span>Track</span>
+      <select class="track-select" id="app-track-select" aria-label="Choose a license or certification"></select>
+    </label>
     <div class="view-toggle">
       <button class="active" data-view="map">Map</button>
       <button data-view="dashboard">Dashboard</button>
@@ -116,9 +105,9 @@
     <div class="header-stats">
       <div><b id="stat-ready">0</b>ready</div>
       <div><b id="stat-progress">0</b>in progress</div>
-      <div><b>51</b>jurisdictions</div>
+      <div><b id="stat-scope">51</b><span id="stat-scope-label">jurisdictions</span></div>
     </div>
-    <div class="storage-flag" id="storage-flag">Progress saves privately to your account as you go.</div>
+    <div class="storage-flag" id="storage-flag">Progress saves as you go.</div>
   </div>
 </header>
 
@@ -127,8 +116,8 @@
     <section class="panel map-panel">
       <div class="map-panel-head">
         <div>
-          <h2>Pick your state</h2>
-          <p>Click any state to open its study hub. Core curriculum is shared everywhere — each state adds its own law &amp; regulation module.</p>
+          <h2 id="map-head-title">Pick your state</h2>
+          <p id="map-head-sub">Click any state to open its study hub. The core curriculum is shared everywhere — each state adds its own rules module.</p>
         </div>
         <div class="legend">
           <span class="chip"><span class="dot" style="background:var(--slate)"></span>Not started</span>
@@ -146,15 +135,15 @@
     <section class="panel detail-panel" id="detail-panel">
       <div class="detail-empty" id="detail-empty">
         <div class="big-mark">→</div>
-        <h3>No state selected</h3>
-        <p>Click a state on the map to see its Life &amp; Health licensing study hub — audio lessons, a summary guide, a practice test, and flashcards.</p>
+        <h3 id="empty-title">No state selected</h3>
+        <p id="empty-body">Click a state on the map to see its study hub — audio lessons, a summary guide, a practice test, and flashcards.</p>
         <p id="empty-hint"></p>
       </div>
 
       <div id="detail-content" style="display:none;">
         <div class="state-head">
           <div>
-            <div class="kicker">Life &amp; Health Insurance License</div>
+            <div class="kicker" id="detail-kicker">Life &amp; Health Insurance Producer License</div>
             <h2 id="state-title">—</h2>
           </div>
           <button class="close-btn" id="close-detail">✕</button>
@@ -182,13 +171,13 @@
 
         <div class="tab-pane" id="pane-summary">
           <div class="summary-outline" id="summary-outline"></div>
-          <button class="dl-btn">↓ Download full study guide (PDF)</button>
         </div>
 
         <div class="tab-pane" id="pane-practice">
           <div class="quiz-progress" id="quiz-progress"></div>
           <div class="quiz-q" id="quiz-q"></div>
           <div class="quiz-opts" id="quiz-opts"></div>
+          <div class="quiz-explain" id="quiz-explain" style="display:none;"></div>
           <div class="quiz-footer">
             <span class="quiz-score" id="quiz-score"></span>
             <button class="next-btn" id="quiz-next" disabled>Next question →</button>
@@ -215,8 +204,9 @@
   </div>
 
   <div class="view" id="dashboard-view">
+    <div class="dash-head">Progress for <b id="dash-track">—</b></div>
     <div class="dash-cards">
-      <div class="dash-card"><div class="num" id="d-total">0</div><div class="lbl">States touched</div></div>
+      <div class="dash-card"><div class="num" id="d-total">0</div><div class="lbl" id="d-total-label">States touched</div></div>
       <div class="dash-card accent"><div class="num" id="d-progress">0</div><div class="lbl">In progress</div></div>
       <div class="dash-card accent2"><div class="num" id="d-ready">0</div><div class="lbl">Exam ready</div></div>
       <div class="dash-card"><div class="num" id="d-quizavg">—</div><div class="lbl">Avg. practice score</div></div>

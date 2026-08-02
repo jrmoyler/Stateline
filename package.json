@@ -1,11 +1,13 @@
 {
   "name": "stateline",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "StateLine — Life & Health insurance licensing exam prep for all 51 US jurisdictions",
+  "description": "StateLine — licensing and certification exam prep across 23 credential tracks and all 51 US jurisdictions",
   "type": "module",
   "scripts": {
     "dev": "npx serve . -l 3000",
-    "start": "npx serve . -l 3000"
+    "start": "npx serve . -l 3000",
+    "validate": "node scripts/validate-tracks.mjs",
+    "smoke": "node scripts/smoke.mjs"
   }
 }
