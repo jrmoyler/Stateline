@@ -24,11 +24,12 @@ import barber          from './barber.js';
 import massage         from './massage.js';
 import permanentMakeup from './permanent-makeup.js';
 import lashTech        from './lash-tech.js';
+import browSpecialist  from './brow-specialist.js';
 
 const ALL = [
   lh, cpa, ea, afsp, pmp, csm, securityPlus, cissp, awsSaa, gcpPca, azureAdmin,
   crs, rene, psa, epro, esthetician, cosmetology, nailTech, barber, massage,
-  permanentMakeup, lashTech,
+  permanentMakeup, lashTech, browSpecialist,
 ];
 
 export const TRACKS = Object.fromEntries(ALL.map(t => [t.id, t]));
@@ -43,7 +44,7 @@ export const TRACK_GROUPS = [
   {label:"Cloud & Infrastructure",      ids:["aws-saa","gcp-pca","azure-admin"]},
   {label:"Real Estate",                 ids:["crs","rene","psa","epro"]},
   {label:"Beauty & Wellness",           ids:["esthetician","cosmetology","nail-tech","barber",
-                                             "massage","permanent-makeup","lash-tech"]},
+                                             "massage","permanent-makeup","lash-tech","brow-specialist"]},
 ];
 
 export const DEFAULT_TRACK_ID = "lh";
