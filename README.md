@@ -4,6 +4,17 @@ Exam prep for 23 licenses and certifications, on one clickable map of all 51 US 
 Pick a credential, pick your state, and get a study hub: audio lessons, a summary guide, a
 practice test, and flashcards — built around the rules that actually apply to you.
 
+## Verification coverage
+
+The current research pass covers **23 tracks × 51 jurisdictions = 1,173 verified coverage
+units**. State-regulated credentials carry 51 separate jurisdiction records. Federal credentials
+carry one issuer-verified nationwide specification that applies identically to all 51.
+
+Verification does not mean inventing a number an authority does not publish. A record can be
+authority-reviewed and still show `unconfirmed` for a fee, item count, or passing score; those
+open fields render with a caveat and are never substituted with an industry average. Run
+`npm run verify:coverage` to enforce the full matrix and the dated research baselines.
+
 ## Why this exists
 
 Almost every prep course teaches one national curriculum. For most credentials the bulk of that
@@ -121,7 +132,8 @@ Zero-config static deploy on Vercel. Import the repo; no build command or output
   for `audioUrl` on each lesson first, so dropping in produced MP3s is a one-line change per lesson.
 - **Fees** are the least-sourced field across every track — they sit behind vendor scheduling
   portals and change often. Left as `unconfirmed` rather than guessed.
-- **Verification coverage is uneven between tracks.** `npm run validate` prints the verified count
-  per track; treat anything badged unverified in the app as a research ticket, not as fact.
+- **Some authorities do not publish every exam field.** Those fields remain explicitly
+  `unconfirmed` and render as “verified with open fields.” `npm run validate` prevents any track
+  or jurisdiction from falling back to an unverified or missing record.
 - Progress is stored per-browser (or per-account where the host provides `window.storage`).
   There is no auth or backend yet.

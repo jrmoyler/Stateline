@@ -25,6 +25,7 @@ import massage         from './massage.js';
 import permanentMakeup from './permanent-makeup.js';
 import lashTech        from './lash-tech.js';
 import browSpecialist  from './brow-specialist.js';
+import { RESEARCH_BASELINES } from './research-baselines.js';
 
 const ALL = [
   lh, cpa, ea, afsp, pmp, csm, securityPlus, cissp, awsSaa, gcpPca, azureAdmin,
@@ -32,7 +33,10 @@ const ALL = [
   permanentMakeup, lashTech, browSpecialist,
 ];
 
-export const TRACKS = Object.fromEntries(ALL.map(t => [t.id, t]));
+export const TRACKS = Object.fromEntries(ALL.map(t => [t.id, {
+  ...t,
+  research: RESEARCH_BASELINES[t.id],
+}]));
 
 // Selector order. Insurance sits first because it is the track with the deepest
 // verified data — it sets the expectation for what the others are working toward.

@@ -8,6 +8,7 @@
     "dev": "npx serve . -l 3000",
     "start": "npx serve . -l 3000",
     "validate": "node scripts/validate-tracks.mjs",
+    "verify:coverage": "node scripts/validate-tracks.mjs",
     "smoke": "node scripts/smoke.mjs"
   }
 }
