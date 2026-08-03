@@ -9,6 +9,7 @@ import { TRACKS, TRACK_GROUPS, DEFAULT_TRACK_ID } from '../src/data/tracks/index
 import states from '../src/data/us-states.json' with { type: 'json' };
 
 const ABBRS = new Set(Object.keys(states.names));
+const JURISDICTION_COUNT = ABBRS.size;
 const SCOPES = new Set(['federal', 'state', 'national-plus-state']);
 const SPEC_FIELDS = ['vendor', 'questions', 'time', 'pass', 'fee', 'note', 'source'];
 
@@ -32,6 +33,32 @@ for(const [id, t] of Object.entries(TRACKS)){
     if(!t[f]) fail(id, `missing "${f}"`);
   }
   if(!SCOPES.has(t.scope)) fail(id, `scope "${t.scope}" is not one of ${[...SCOPES].join(', ')}`);
+
+  // ---- research baseline ----
+  // Every track needs a dated, clickable primary-source baseline. Per-state source
+  // lines remain more specific; this record makes the review method auditable and
+  // prevents an entire track from being marked verified without an authority.
+  const research = t.research;
+  if(!research) fail(id, 'missing track research baseline');
+  else {
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(research.reviewedAt || '')){
+      fail(id, 'research.reviewedAt must be an ISO date');
+    }
+    const expectedCoverage = t.scope === 'federal' ? 'nationwide' : '51-jurisdiction';
+    if(research.coverage !== expectedCoverage){
+      fail(id, `research.coverage must be "${expectedCoverage}" for scope "${t.scope}"`);
+    }
+    if(typeof research.method !== 'string' || research.method.length < 40){
+      fail(id, 'research.method must explain the verification approach');
+    }
+    if(!Array.isArray(research.sources) || !research.sources.length){
+      fail(id, 'research.sources needs at least one primary authority');
+    }
+    for(const [i, source] of (research.sources || []).entries()){
+      if(!source.authority) fail(id, `research.sources[${i}] has no authority label`);
+      if(!/^https:\/\//.test(source.url || '')) fail(id, `research.sources[${i}] needs an https URL`);
+    }
+  }
 
   // ---- lessons ----
   if(!Array.isArray(t.lessons) || t.lessons.length < 4 || t.lessons.length > 8){
@@ -112,6 +139,18 @@ for(const [id, t] of Object.entries(TRACKS)){
     }
     if(!t.genericSpecNote) fail(id, 'a state-scoped track needs a genericSpecNote fallback');
     if(!t.stateSpecs || !Object.keys(t.stateSpecs).length) fail(id, 'a state-scoped track needs stateSpecs');
+
+    const specKeys = Object.keys(t.stateSpecs || {});
+    const missing = [...ABBRS].filter(abbr => !t.stateSpecs?.[abbr]);
+    if(specKeys.length !== JURISDICTION_COUNT || missing.length){
+      fail(id, `stateSpecs must cover all ${JURISDICTION_COUNT} jurisdictions; missing ${missing.join(', ') || 'none'}`);
+    }
+    const unverified = Object.entries(t.stateSpecs || {})
+      .filter(([, spec]) => spec.verified !== true)
+      .map(([abbr]) => abbr);
+    if(unverified.length){
+      fail(id, `${unverified.length} jurisdiction(s) remain unverified: ${unverified.join(', ')}`);
+    }
   }
   if(t.scope === 'national-plus-state' && !t.globalSpec){
     fail(id, 'a national-plus-state track needs a globalSpec for the national credential');
@@ -149,8 +188,17 @@ const rows = Object.values(TRACKS).map(t => {
           String(t.lessons?.length ?? 0).padStart(2) + ' lessons',
           String(t.quiz?.length ?? 0).padStart(3) + ' quiz',
           String(t.flashcards?.length ?? 0).padStart(3) + ' cards',
-          t.scope === 'federal' ? '   —' : `${String(v).padStart(2)}/${String(n).padStart(2)} verified`].join('  ');
+          t.scope === 'federal'
+            ? `${String(t.globalSpec?.verified ? JURISDICTION_COUNT : 0).padStart(2)}/${JURISDICTION_COUNT} nationwide`
+            : `${String(v).padStart(2)}/${String(n).padStart(2)} verified`].join('  ');
 });
 rows.forEach(r => console.log('  ' + r));
-console.log(`\n  ${Object.keys(TRACKS).length} tracks · ${errors} error(s) · ${warnings} warning(s)\n`);
+const coverageUnits = Object.values(TRACKS).reduce((sum, t) => {
+  if(t.scope === 'federal') return sum + (t.globalSpec?.verified ? JURISDICTION_COUNT : 0);
+  return sum + Object.values(t.stateSpecs || {}).filter(spec => spec.verified).length;
+}, 0);
+const expectedUnits = Object.keys(TRACKS).length * JURISDICTION_COUNT;
+if(coverageUnits !== expectedUnits) fail('coverage', `${coverageUnits}/${expectedUnits} track-jurisdiction units verified`);
+console.log(`\n  ${Object.keys(TRACKS).length} tracks × ${JURISDICTION_COUNT} jurisdictions = ${coverageUnits}/${expectedUnits} verified coverage units`);
+console.log(`  ${errors} error(s) · ${warnings} warning(s)\n`);
 process.exit(errors ? 1 : 0);

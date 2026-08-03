@@ -16,6 +16,15 @@ export default {
   scope:    "federal",                      // federal | state | national-plus-state
   tagline:  "PMI's flagship project management credential.",
 
+  // Injected by index.js from research-baselines.js. Every track carries a dated
+  // primary-authority baseline and an explicit nationwide or 51-jurisdiction scope.
+  research: {
+    reviewedAt: "2026-08-02",
+    coverage: "nationwide", // or "51-jurisdiction"
+    method: "How issuing authorities and official vendor material were checked.",
+    sources: [{ authority:"Issuing authority", url:"https://official.example/" }],
+  },
+
   // ---- content (identical shape for every track) ----
   lessons: [
     { t:"Topic title", d:"one-line subhead", len:"18 min", script:"narration text, plain prose" },
@@ -96,6 +105,12 @@ StateLine's only reason to exist is that generic prep material silently gets the
   A jurisdiction with no entry at all falls through to `genericSpecNote`.
 - `confidence: "partial — …"` when the vendor and format are solid but a field is still unsourced.
   Omit the key entirely when everything checks out.
+- Every non-federal track must contain all 51 jurisdiction keys and every record must have
+  `verified:true`. This does **not** authorize guessing: a field the authority does not publish
+  remains `"unconfirmed"`, and the record carries a `confidence` caveat. Federal tracks apply one
+  verified `globalSpec` nationwide, so they contribute 51 coverage units without duplicating data.
+- `research-baselines.js` records the date, method, scope, and clickable primary authority used
+  for the track-wide review. The per-state `source` remains the more specific evidence line.
 - When two sources disagree about a testing vendor, it is almost always a stale source. State
   boards switch vendors and third-party sites don't notice for years. Check the board's own site.
 - Put genuine outliers in `note`. A state that scores on a scale rather than a percentage, or has

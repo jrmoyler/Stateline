@@ -229,6 +229,9 @@ document.querySelectorAll('.view-toggle button').forEach(b=>{
 function specBlock(spec, label){
   if(!spec) return '';
   let badgeLabel = '✓ Verified', badgeClass = 'yes', caution = '';
+  const openFieldText = [spec.vendor, spec.questions, spec.time, spec.pass, spec.fee, spec.note, spec.source]
+    .filter(Boolean).join(' ');
+  const hasOpenFields = /\bunconfirmed\b|\breported\b|secondary source|not directly read|not sourced|retrieval blocked/i.test(openFieldText);
   if(!spec.verified){
     badgeLabel = '⚠ Unverified draft';
     badgeClass = 'warn';
@@ -236,11 +239,18 @@ function specBlock(spec, label){
     // An unverified entry can still say precisely what is unknown, and that is worth more
     // than the generic warning on its own.
     if(spec.confidence) caution += ' ' + spec.confidence;
-  } else if(spec.confidence){
-    badgeLabel = '△ Partially verified';
+  } else if(spec.confidence || hasOpenFields){
+    badgeLabel = '△ Verified with open fields';
     badgeClass = 'no';
-    caution = spec.confidence;
+    caution = spec.confidence
+      || 'The issuing authority or official program baseline was reviewed, but one or more fields are unpublished or still rely on clearly labeled secondary reporting. No estimate has been promoted to fact.';
   }
+  const research = track().research;
+  const baseline = research?.sources?.[0];
+  const researchLine = baseline
+    ? '<div class="source-line">Research baseline: <a href="'+esc(baseline.url)+'" target="_blank" rel="noopener">'
+      + esc(baseline.authority) + '</a> · reviewed ' + esc(research.reviewedAt) + '</div>'
+    : '';
   return (label ? '<div class="spec-label">'+esc(label)+'</div>' : '')
     + '<span class="verified-badge '+badgeClass+'">'+badgeLabel+'</span>'
     + (caution ? '<div class="exam-note caution">'+esc(caution)+'</div>' : '')
@@ -252,7 +262,8 @@ function specBlock(spec, label){
     + specCell('Fee', spec.fee)
     + '</div>'
     + '<div class="exam-note">'+esc(spec.note)+'</div>'
-    + '<div class="source-line">Source: '+esc(spec.source)+'</div>';
+    + '<div class="source-line">State/credential evidence: '+esc(spec.source)+'</div>'
+    + researchLine;
 }
 function specCell(label, value){
   const v = value === undefined || value === null || value === '' ? '—' : value;
